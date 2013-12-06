@@ -1,0 +1,7 @@
+Galcon ELO git by medeman
+
+Idea and design (template) by Tycho2
+
+Fill out the admin/config.php (rename "config-EXAMPLE.php") file and upload all files to your webserver. Requires PHP and MySQL with the MySQLi extension.
+
+For enhanced security .htaccess- and .htpasswd-protect the admin folder (otherwise everybody can access the admin panel and probably even do some SQL injection from there)

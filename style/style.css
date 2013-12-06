@@ -1,0 +1,12 @@
+body {
+	background-image: url('bg.png');
+}
+
+/*td,th,tr {
+	background-color: orange;
+}*/
+
+#wrapper { 
+	width: 900px;
+	margin: 0px auto;
+}
