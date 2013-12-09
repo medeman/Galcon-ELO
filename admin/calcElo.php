@@ -19,8 +19,8 @@ for ($i=0; $i<$count; $i++)
 {
 	$row = $query->fetch_assoc();
 	
-	$winner = $row['winner'];
-	$loser = $row['loser'];
+	$winner = str_replace('_', '\\_',$row['winner']);
+	$loser = str_replace('_', '\\_',$row['loser']);
 	$id = $row['id'];
 	
 	$entry2 = "SELECT elo, wins, losses FROM $dbn_players WHERE username LIKE '$winner'";
