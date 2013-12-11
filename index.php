@@ -6,7 +6,9 @@
 		<script src="js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				$('#f00').dataTable();
+				$('#f00').dataTable({
+					'aaSorting': [[1, 'desc']]
+				});
 			} );
 		</script>
 	</head>
@@ -34,21 +36,6 @@ for ($i=0; $i<$amount; $i++)
 	$flag = getFlag($row['elo']);
 	$wins = $row['wins'];
 	$losses = $row['losses'];
-	echo "<tr>";
-	echo "<td>";
-	echo "<img src=\"style/rank/rank$flag.png\" width=\"18\" /> ";
-	echo $row['username'];
-	echo "</td>";
-	echo "<td>";
-	echo $row['elo'];
-	echo "</td>";
-	echo "<td>";
-	echo $wins;
-	echo "</td>";
-	echo "<td>";
-	echo $losses;
-	echo "</td>";
-	echo "<td>";
 	if ($losses == 0)
 	{
 		$wl = 0;
@@ -58,13 +45,8 @@ for ($i=0; $i<$amount; $i++)
 		$wl = $wins / $losses;
 		$wl = substr($wl,0,4);
 	}
-	echo $wl;
-	echo "</td>";
-	echo "<td>";
 	$games = $wins + $losses;
-	echo $games;
-	echo "</td>";
-	echo "</tr>";
+	echo "<tr><td><img src=\"style/rank/rank$flag.png\" width=\"18\" /> ", $row['username'], "</td><td>", $row['elo'], "</td><td>", $wins, "</td><td>", $losses, "</td><td>", $wl, "</td><td>", $games, "</td></tr>";
 }
 
 ?>
