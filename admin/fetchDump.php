@@ -33,8 +33,8 @@ for ($a = 0; $a < $allGamesCount; $a++)
 		$timestampDateArray = explode("	",$timestampArray[0]);
 		$timestampTimeArray = explode("	",$timestampArray[1]);
 		$timestamp = "$timestampDateArray[1] $timestampTimeArray[0]";
-		$winner = $winnerArray[0];
-		$loser = $loserArray[0];
+		$winner = str_replace('_', '\\_',$winnerArray[0]);
+		$loser = str_replace('_', '\\_',$loserArray[0]);
 		
 		$entry2 = "SELECT * FROM $dbn_gamedata WHERE timestamp LIKE '$timestamp' AND winner LIKE '$winner' AND loser LIKE '$loser'";
 		$msc = microtime(true); //timer
