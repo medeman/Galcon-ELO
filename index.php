@@ -2,7 +2,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="style/style.css" />
 		<link rel="stylesheet" type="text/css" href="style/jquery.dataTables.css" />
-		<script src="js/jquery-1.9.1.js"></script>
+		<script src="js/jquery-1.10.2.min.js"></script>
 		<script src="js/jquery.dataTables.min.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
