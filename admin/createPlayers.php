@@ -12,10 +12,10 @@ for ($i=0; $i<$count; $i++)
 {
 	$row = $query->fetch_assoc();
 	
-	$winner = str_replace('_', '\\_',$row['winner']);
-	$loser = str_replace('_', '\\_',$row['loser']);
+	$winner = $row['winner'];
+	$loser = $row['loser'];
 	
-	$entry2 = "SELECT username FROM $dbn_players WHERE username LIKE '$winner'";
+	$entry2 = "SELECT username FROM $dbn_players WHERE username LIKE '" . str_replace('_', '\\_',$winner) . "'";
 	$query2 = $db->query($entry2);
 	$count2 = $query2->num_rows;
 	
@@ -25,7 +25,7 @@ for ($i=0; $i<$count; $i++)
 		$query2 = $db->query($entry2);
 	}
 	
-	$entry2 = "SELECT username FROM $dbn_players WHERE username LIKE '$loser'";
+	$entry2 = "SELECT username FROM $dbn_players WHERE username LIKE '" . str_replace('_', '\\_',$loser) . "'";
 	$query2 = $db->query($entry2);
 	$count2 = $query2->num_rows;
 	

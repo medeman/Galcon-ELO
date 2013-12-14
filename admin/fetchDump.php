@@ -4,7 +4,7 @@ require "config.php";
 
 $db = new mysqli("$db_host","$dba_user","$dba_pass","$db_name");
 
-$days = $_GET['days'];
+$days = 14;//$_GET['days'];
 $msc = microtime(true); //timer
 $allGames = file("http://www.galcon.com/$dumpType/dump.php?days=$days", FILE_IGNORE_NEW_LINES);
 $msc = microtime(true) - $msc; //timer
@@ -33,10 +33,10 @@ for ($a = 0; $a < $allGamesCount; $a++)
 		$timestampDateArray = explode("	",$timestampArray[0]);
 		$timestampTimeArray = explode("	",$timestampArray[1]);
 		$timestamp = "$timestampDateArray[1] $timestampTimeArray[0]";
-		$winner = str_replace('_', '\\_',$winnerArray[0]);
-		$loser = str_replace('_', '\\_',$loserArray[0]);
+		$winner = $winnerArray[0];
+		$loser = $loserArray[0];
 		
-		$entry2 = "SELECT * FROM $dbn_gamedata WHERE timestamp LIKE '$timestamp' AND winner LIKE '$winner' AND loser LIKE '$loser'";
+		$entry2 = "SELECT * FROM $dbn_gamedata WHERE timestamp LIKE '$timestamp' AND winner LIKE '" . str_replace('_', '\\_',$winner) . "' AND loser LIKE '" . str_replace('_', '\\_',$loser) . "'";
 		$msc = microtime(true); //timer
 		$query2 = $db->query($entry2);
 		$msc = microtime(true) - $msc; //timer

@@ -19,11 +19,11 @@ for ($i=0; $i<$count; $i++)
 {
 	$row = $query->fetch_assoc();
 	
-	$winner = str_replace('_', '\\_',$row['winner']);
-	$loser = str_replace('_', '\\_',$row['loser']);
+	$winner = $row['winner'];
+	$loser = $row['loser'];
 	$id = $row['id'];
 	
-	$entry2 = "SELECT elo, wins, losses FROM $dbn_players WHERE username LIKE '$winner'";
+	$entry2 = "SELECT elo, wins, losses FROM $dbn_players WHERE username LIKE '" . str_replace('_', '\\_',$winner) . "'";
 	$msc = microtime(true); //timer
 	$query2 = $db->query($entry2);
 	$msc = microtime(true) - $msc; //timer
@@ -33,7 +33,7 @@ for ($i=0; $i<$count; $i++)
 	$wins = $row2['wins'] + 1;
 	$gamesA = $wins + $row2['losses'];
 	
-	$entry2 = "SELECT elo, wins, losses FROM $dbn_players WHERE username LIKE '$loser'";
+	$entry2 = "SELECT elo, wins, losses FROM $dbn_players WHERE username LIKE '" . str_replace('_', '\\_',$loser) . "'";
 	$msc = microtime(true); //timer
 	$query2 = $db->query($entry2);
 	$msc = microtime(true) - $msc; //timer
@@ -66,13 +66,13 @@ for ($i=0; $i<$count; $i++)
 	$newEloB = $elo -> getEloPlayers( 1 );
 	$loserElo = $newEloB['newElo'];
 	
-	$entry2 = "UPDATE $dbn_players SET elo='$winnerElo', wins='$wins' WHERE username LIKE '$winner'";
+	$entry2 = "UPDATE $dbn_players SET elo='$winnerElo', wins='$wins' WHERE username LIKE '" . str_replace('_', '\\_',$winner) . "'";
 	$msc = microtime(true); //timer
 	$query2 = $db->query($entry2);
 	$msc = microtime(true) - $msc; //timer
 	tookSeconds("query4",$msc); //timer
 	
-	$entry2 = "UPDATE $dbn_players SET elo='$loserElo', losses='$losses' WHERE username LIKE '$loser'";
+	$entry2 = "UPDATE $dbn_players SET elo='$loserElo', losses='$losses' WHERE username LIKE '" . str_replace('_', '\\_',$loser) . "'";
 	$msc = microtime(true); //timer
 	$query2 = $db->query($entry2);
 	$msc = microtime(true) - $msc; //timer
