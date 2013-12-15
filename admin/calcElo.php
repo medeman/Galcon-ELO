@@ -8,7 +8,7 @@ $elo = new EloRatingSystem();
 
 $db = new mysqli("$db_host","$dba_user","$dba_pass","$db_name");
 
-$entry = "SELECT id, winner, loser, elofied FROM $dbn_gamedata WHERE elofied LIKE '0'";
+$entry = "SELECT id, winner, loser, elofied FROM $dbn_gamedata WHERE elofied = '0'";
 $msc = microtime(true); //timer
 $query = $db->query($entry);
 $msc = microtime(true) - $msc; //timer
@@ -23,7 +23,7 @@ for ($i=0; $i<$count; $i++)
 	$loser = $row['loser'];
 	$id = $row['id'];
 	
-	$entry2 = "SELECT elo, wins, losses FROM $dbn_players WHERE username LIKE '" . str_replace('_', '\\_',$winner) . "'";
+	$entry2 = "SELECT elo, wins, losses FROM $dbn_players WHERE username = '$winner'";
 	$msc = microtime(true); //timer
 	$query2 = $db->query($entry2);
 	$msc = microtime(true) - $msc; //timer
@@ -33,7 +33,7 @@ for ($i=0; $i<$count; $i++)
 	$wins = $row2['wins'] + 1;
 	$gamesA = $wins + $row2['losses'];
 	
-	$entry2 = "SELECT elo, wins, losses FROM $dbn_players WHERE username LIKE '" . str_replace('_', '\\_',$loser) . "'";
+	$entry2 = "SELECT elo, wins, losses FROM $dbn_players WHERE username = '$loser'";
 	$msc = microtime(true); //timer
 	$query2 = $db->query($entry2);
 	$msc = microtime(true) - $msc; //timer
@@ -66,19 +66,19 @@ for ($i=0; $i<$count; $i++)
 	$newEloB = $elo -> getEloPlayers( 1 );
 	$loserElo = $newEloB['newElo'];
 	
-	$entry2 = "UPDATE $dbn_players SET elo='$winnerElo', wins='$wins' WHERE username LIKE '" . str_replace('_', '\\_',$winner) . "'";
+	$entry2 = "UPDATE $dbn_players SET elo='$winnerElo', wins='$wins' WHERE username = '$winner'";
 	$msc = microtime(true); //timer
 	$query2 = $db->query($entry2);
 	$msc = microtime(true) - $msc; //timer
 	tookSeconds("query4",$msc); //timer
 	
-	$entry2 = "UPDATE $dbn_players SET elo='$loserElo', losses='$losses' WHERE username LIKE '" . str_replace('_', '\\_',$loser) . "'";
+	$entry2 = "UPDATE $dbn_players SET elo='$loserElo', losses='$losses' WHERE username = '$loser'";
 	$msc = microtime(true); //timer
 	$query2 = $db->query($entry2);
 	$msc = microtime(true) - $msc; //timer
 	tookSeconds("query5",$msc); //timer
 	
-	$entry2 = "UPDATE $dbn_gamedata SET elofied='1' WHERE id LIKE '$id'";
+	$entry2 = "UPDATE $dbn_gamedata SET elofied='1' WHERE id = '$id'";
 	$msc = microtime(true); //timer
 	$query2 = $db->query($entry2);
 	$msc = microtime(true) - $msc; //timer

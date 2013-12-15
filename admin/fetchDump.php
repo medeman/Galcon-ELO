@@ -36,7 +36,7 @@ for ($a = 0; $a < $allGamesCount; $a++)
 		$winner = $winnerArray[0];
 		$loser = $loserArray[0];
 		
-		$entry2 = "SELECT * FROM $dbn_gamedata WHERE timestamp LIKE '$timestamp' AND winner LIKE '" . str_replace('_', '\\_',$winner) . "' AND loser LIKE '" . str_replace('_', '\\_',$loser) . "'";
+		$entry2 = "SELECT * FROM $dbn_gamedata WHERE timestamp = '$timestamp' AND winner = '$winner' AND loser = '$loser'";
 		$msc = microtime(true); //timer
 		$query2 = $db->query($entry2);
 		$msc = microtime(true) - $msc; //timer
